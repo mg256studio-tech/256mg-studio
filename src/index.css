@@ -1,0 +1,1082 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #1241a1;
+    --color-ink: #0f2c63;
+    --color-paper: #f7f5f0;
+    --color-paper-dark: #1a1814;
+    --color-diary-cover: #e3dac9;
+    --color-diary-paper: #fffdf5;
+    --color-blueprint: rgba(18, 65, 161, 0.05);
+    --color-coffee: #6f4e37;
+    --color-marginalia: #2b569a;
+    --color-red-ink: #d63031;
+    --color-folder-beige: #e8e1d5;
+    --color-folder-shadow: #c4baa8;
+    --color-drafting: #cbd5e1;
+
+    --font-family-display: "Manrope", sans-serif;
+    --font-family-serif: "Playfair Display", serif;
+    --font-family-hand: "Caveat", cursive;
+    --font-family-script: "Indie Flower", cursive;
+    --font-family-sketch: "Architects Daughter", cursive;
+
+    --shadow-diary: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 15px rgba(0, 0, 0, 0.1);
+    --shadow-polaroid: 2px 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Cursor */
+body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%231241a1' d='M2,2 L10,26 L14,14 L26,10 L2,2 Z' style='transform-origin: center; transform: rotate(15deg);' /%3E%3Cpath fill='white' d='M6,6 L11,21 L13.5,13.5 L21,11 L6,6 Z' style='transform-origin: center; transform: rotate(15deg);' opacity='0.3'/%3E%3C/svg%3E") 2 2, auto;
+    background-color: #f7f5f0;
+    background-image:
+        radial-gradient(#1241a1 0.5px, transparent 0.5px),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 24px 24px, auto;
+}
+
+a,
+button,
+[role="button"],
+input,
+textarea,
+select,
+.cursor-pointer {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%230f2c63' d='M2,2 L10,26 L14,14 L26,10 L2,2 Z' style='transform-origin: center; transform: rotate(15deg) translate(2px, 2px);' /%3E%3Ccircle cx='20' cy='20' r='3' fill='%230f2c63' opacity='0.6' /%3E%3C/svg%3E") 2 2, pointer;
+}
+
+/* Hand-drawn borders */
+.hand-drawn-border {
+    border: 2px solid #1241a1;
+    border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+}
+
+.hand-drawn-border-sm {
+    border: 1.5px solid #1241a1;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.hand-drawn-underline {
+    background-image: linear-gradient(#1241a1, #1241a1);
+    background-position: bottom left;
+    background-size: 100% 1.5px;
+    background-repeat: no-repeat;
+    border-radius: 20% 40% 60% 80%;
+}
+
+.wobbly-box {
+    position: relative;
+}
+
+.wobbly-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #1241a1;
+    border-radius: 2% 4% 3% 5% / 3% 2% 5% 4%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.sketch-shadow {
+    box-shadow: 4px 4px 0px 0px rgba(18, 65, 161, 0.1);
+}
+
+/* Blueprint board */
+.blueprint-board {
+    position: relative;
+    background-color: #fff;
+    border: 3px solid #1241a1;
+    border-radius: 2px 5px 4px 3px / 200px 5px 180px 4px;
+    box-shadow: 12px 14px 0px rgba(18, 65, 161, 0.08);
+    background-image:
+        linear-gradient(rgba(18, 65, 161, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 65, 161, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.blueprint-column {
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .blueprint-column:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -1.5rem;
+        top: 10%;
+        bottom: 5%;
+        width: 2px;
+        background-color: #1241a1;
+        opacity: 0.3;
+        border-radius: 50% 20% / 10% 40%;
+        transform: rotate(0.5deg);
+    }
+}
+
+/* Overlay navigation */
+.overlay-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(247, 245, 240, 0.98);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+.overlay-nav.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sketchbook-spread {
+    width: 90%;
+    max-width: 1100px;
+    aspect-ratio: 3/2;
+    background-color: #fff;
+    border: 2px solid #1241a1;
+    border-radius: 4px;
+    box-shadow: 20px 20px 0px rgba(18, 65, 161, 0.1), inset 0 0 60px rgba(18, 65, 161, 0.05);
+    position: relative;
+    display: flex;
+    background-image: linear-gradient(to right, #fdfbf7 0%, #fff 48%, #e0e0e0 50%, #fff 52%, #fdfbf7 100%);
+}
+
+.sketchbook-page {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sketchbook-spine {
+    position: absolute;
+    left: 50%;
+    top: 2%;
+    bottom: 2%;
+    width: 4px;
+    background-color: rgba(18, 65, 161, 0.1);
+    transform: translateX(-50%);
+    border-radius: 2px;
+    z-index: 10;
+}
+
+.sketchbook-nav-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #1241a1;
+    text-decoration: none;
+    position: relative;
+    margin-bottom: 1rem;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.sketchbook-nav-link:hover {
+    transform: scale(1.02) translateX(10px);
+}
+
+.sketchbook-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #1241a1;
+    transition: width 0.3s ease-in-out;
+    border-radius: 50% 20% / 10% 40%;
+}
+
+.sketchbook-nav-link:hover::after {
+    width: 100%;
+}
+
+.sketchbook-nav-link.active::after {
+    width: 100%;
+}
+
+.sketchbook-nav-link.active {
+    transform: scale(1.02) translateX(10px);
+    font-weight: bold;
+}
+
+.sketchbook-close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    color: #1241a1;
+    cursor: pointer;
+    z-index: 50;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.sketchbook-close:hover {
+    transform: rotate(90deg);
+}
+
+.coffee-stain {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 8px solid rgba(139, 69, 19, 0.15);
+    border-radius: 50%;
+    top: -40px;
+    right: 150px;
+    pointer-events: none;
+    transform: scale(1.1) rotate(20deg);
+    mask-image: radial-gradient(circle, transparent 50%, black 100%);
+}
+
+/* Ripped edges */
+.ripped-edge-top {
+    position: absolute;
+    top: -24px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 5' preserveAspectRatio='none'%3E%3Cpath d='M0,5 L2,2 L4,5 L6,1 L8,5 L10,2 L12,5 L14,1 L16,5 L18,2 L20,5' fill='none' stroke='%231241a1' stroke-width='0.5' vector-effect='non-scaling-stroke' stroke-linejoin='round' /%3E%3C/svg%3E");
+    background-size: 40px 100%;
+    background-repeat: repeat-x;
+}
+
+.ripped-shadow {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background-image: radial-gradient(circle at 50% 100%, rgba(18, 65, 161, 0.1) 0%, transparent 70%);
+    background-size: 6px 6px;
+    opacity: 0.6;
+    z-index: 18;
+    pointer-events: none;
+}
+
+.notebook-spiral-top {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='30' viewBox='0 0 40 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,30 Q5,0 10,30 T20,30 T30,30 T40,30 V40 H0 Z' fill='%23f7f5f0' stroke='%231241a1' stroke-width='1.5' fill-opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 40px 30px;
+    z-index: 20;
+    filter: drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.05));
+}
+
+.notebook-spiral-top::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-image:
+        url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L1,1 M3,2 L4,3 M6,0 L7,1 M2,5 L3,6 M5,4 L6,5 M0,7 L1,8' stroke='%231241a1' stroke-width='0.5' opacity='0.2'/%3E%3C/svg%3E"),
+        linear-gradient(to bottom, rgba(18, 65, 161, 0.1) 0%, transparent 100%);
+    background-size: 8px 8px, 100% 100%;
+    pointer-events: none;
+    z-index: 15;
+    mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+.tape {
+    position: absolute;
+    width: 120px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(18, 65, 161, 0.1);
+    transform: rotate(-15deg);
+    z-index: 30;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    opacity: 0.85;
+}
+
+.tape-top {
+    top: -14px;
+    left: 35%;
+    transform: rotate(-2deg);
+}
+
+.tape-corner {
+    top: -10px;
+    right: -20px;
+    transform: rotate(35deg);
+}
+
+/* Assembly diagrams */
+.assembly-diagram svg {
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Diary */
+.diary-book {
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 3.2/2;
+    background-color: #e3dac9;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 0 100px rgba(0, 0, 0, 0.05);
+    display: flex;
+    padding: 12px;
+    margin: 0 auto;
+}
+
+.diary-book::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 98%;
+    height: 96%;
+    border-radius: 16px;
+    border: 2px dashed rgba(18, 65, 161, 0.2);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.diary-spread {
+    flex: 1;
+    background: #fffdf5;
+    border-radius: 12px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        inset 20px 0 50px -10px rgba(0, 0, 0, 0.1),
+        inset -20px 0 50px -10px rgba(0, 0, 0, 0.1);
+    background-image:
+        linear-gradient(90deg,
+            #fffdf5 0%,
+            #fdfbf7 45%,
+            #e6e2d8 49%,
+            #d6d1c4 50%,
+            #e6e2d8 51%,
+            #fdfbf7 55%,
+            #fffdf5 100%);
+}
+
+.diary-page {
+    flex: 1;
+    position: relative;
+    padding: 40px;
+    z-index: 10;
+}
+
+.diary-page-left {
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.diary-binding-stitch {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    transform: translateX(-50%);
+    z-index: 20;
+    background-image: linear-gradient(to bottom,
+            transparent 4px,
+            rgba(60, 50, 40, 0.3) 4px,
+            rgba(60, 50, 40, 0.3) 12px,
+            transparent 12px);
+    background-size: 100% 16px;
+}
+
+.diary-ribbon {
+    position: absolute;
+    bottom: -60px;
+    left: 65%;
+    width: 24px;
+    height: 120px;
+    background: #0f2c63;
+    z-index: 5;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transform: rotate(5deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+}
+
+.ink-splat {
+    position: absolute;
+    background: #1241a1;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.script-text {
+    font-family: 'Indie Flower', cursive;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.polaroid-tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 60px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.hand-drawn-arrow {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #1241a1;
+    border-radius: 50% 60% 40% 70% / 60% 50% 70% 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.hand-drawn-arrow:hover {
+    transform: scale(1.1) rotate(-5deg);
+    background: rgba(18, 65, 161, 0.05);
+}
+
+.scrap-paper {
+    background-color: #fff;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.scrap-paper::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 40px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transform: rotate(-3deg);
+}
+
+.clutter-item {
+    position: absolute;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.dashed-line-x {
+    background-image: linear-gradient(to right, #1241a1 50%, transparent 50%);
+    background-position: bottom;
+    background-size: 12px 2px;
+    background-repeat: repeat-x;
+    height: 2px;
+    width: 100%;
+}
+
+/* Additional styles */
+.wobbly-line {
+    width: 100%;
+    height: 2px;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='6' viewBox='0 0 100 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,3 Q25,6 50,3 T100,3' fill='none' stroke='%231241a1' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") repeat-x;
+    background-size: 50px 100%;
+}
+
+.callout-line {
+    position: absolute;
+    stroke: #1241a1;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 0;
+    pointer-events: none;
+}
+
+.process-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-top: 2px dashed #1241a1;
+    opacity: 0.3;
+    z-index: 0;
+    transform: translateY(-50%) rotate(-1deg);
+    pointer-events: none;
+}
+
+.polaroid-shadow {
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2), 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.polaroid-frame {
+    background: #fff;
+    padding: 12px 12px 40px 12px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.15);
+    transform: rotate(-3deg);
+    border: 1px solid rgba(18, 65, 161, 0.1);
+}
+
+.footer-mascot {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 80px;
+    height: 80px;
+    opacity: 0.9;
+    transform: rotate(-5deg);
+}
+
+.ripped-divider {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='20' viewBox='0 0 30 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,20 L5,5 L10,20 L15,2 L20,20 L25,5 L30,20 V25 H0 Z' fill='%23f7f5f0' /%3E%3Cpath d='M0,20 L5,5 L10,20 L15,2 L20,20 L25,5 L30,20' fill='none' stroke='%231241a1' stroke-width='2' /%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 30px 20px;
+    z-index: 10;
+}
+
+.diary-container {
+    perspective: 2000px;
+    transform-style: preserve-3d;
+}
+
+.diary-nav {
+    cursor: pointer;
+}
+
+/* Folder styles for project archive */
+.folder-tab {
+    clip-path: polygon(10px 0, 150px 0, 160px 10px, 160px 40px, 0 40px, 0 10px);
+}
+
+.folder-body {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 0 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(18, 65, 161, 0.1);
+}
+
+.paper-clip {
+    position: absolute;
+    width: 40px;
+    height: 12px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    z-index: 50;
+    top: -6px;
+    left: 20px;
+    background: linear-gradient(90deg, #ccc, #888);
+    transform: rotate(-2deg);
+}
+
+.blueprint-grid {
+    background-image:
+        linear-gradient(rgba(18, 65, 161, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 65, 161, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.hand-drawn-shadow {
+    filter: drop-shadow(3px 3px 0px rgba(18, 65, 161, 0.1));
+}
+
+/* Message page styles */
+.ink-blot {
+    mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,79.6,-46.3C87.4,-33.5,90.1,-18,87.9,-3.3C85.7,11.4,78.6,25.3,69.5,37.3C60.4,49.3,49.3,59.4,36.8,65.6C24.3,71.8,10.4,74.1,-2.3,78.1C-15,82.1,-26.5,87.8,-37.5,81.4C-48.5,75,-59,56.5,-66.6,39.6C-74.2,22.7,-78.9,7.4,-77.3,-7.4C-75.7,-22.2,-67.8,-36.5,-56.3,-46.8C-44.8,-57.1,-29.7,-63.4,-15.5,-64.8C-1.3,-66.2,12,-62.7,25.3,-59.2Z" fill="black" transform="translate(100 100)" /></svg>');
+    -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,79.6,-46.3C87.4,-33.5,90.1,-18,87.9,-3.3C85.7,11.4,78.6,25.3,69.5,37.3C60.4,49.3,49.3,59.4,36.8,65.6C24.3,71.8,10.4,74.1,-2.3,78.1C-15,82.1,-26.5,87.8,-37.5,81.4C-48.5,75,-59,56.5,-66.6,39.6C-74.2,22.7,-78.9,7.4,-77.3,-7.4C-75.7,-22.2,-67.8,-36.5,-56.3,-46.8C-44.8,-57.1,-29.7,-63.4,-15.5,-64.8C-1.3,-66.2,12,-62.7,25.3,-59.2Z" fill="black" transform="translate(100 100)" /></svg>');
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.wobbly-line-link {
+    position: relative;
+    text-decoration: none;
+}
+
+.wobbly-line-link svg {
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 8px;
+    overflow: visible;
+}
+
+.wobbly-line-link path {
+    fill: none;
+    stroke: #1241a1;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+.wobbly-line-link:hover path {
+    animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -200;
+    }
+}
+
+/* Contact form styles */
+.hand-drawn-input {
+    border: none;
+    border-bottom: 2px solid #1241a1;
+    background: transparent;
+    border-radius: 0;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #1241a1;
+}
+
+.hand-drawn-input:focus {
+    ring: 0;
+    outline: none;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+}
+
+.wobbly-checkbox {
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #1241a1;
+    border-radius: 50% 40% 60% 50% / 40% 50% 50% 60%;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.wobbly-checkbox::before {
+    content: "";
+    width: 0.8rem;
+    height: 0.8rem;
+    background: #1241a1;
+    border-radius: 40% 60% 50% 50%;
+    transform: scale(0);
+    transition: 0.2s transform ease-in-out;
+}
+
+.wobbly-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.tape-strip {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6);
+    height: 35px;
+    width: 140px;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    z-index: 20;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.wax-seal {
+    background: #1241a1;
+    color: #fff;
+    border-radius: 50% 45% 55% 50% / 50% 55% 45% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 4px 6px 10px rgba(18, 65, 161, 0.4);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.timeline-line {
+    height: 3px;
+    background: #1241a1;
+    border-radius: 50% 20% / 10% 40%;
+    position: relative;
+}
+
+.coffee-ring {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 12px solid rgba(139, 69, 19, 0.08);
+    border-radius: 50%;
+    top: 50px;
+    right: 50px;
+    pointer-events: none;
+    transform: rotate(35deg);
+    mask-image: radial-gradient(circle, transparent 55%, black 80%, transparent 100%);
+    z-index: 0;
+}
+
+.budget-box {
+    border: 2px solid #1241a1;
+    border-radius: 2px 4px 2px 5px;
+    transition: all 0.3s ease;
+}
+
+.budget-box:hover {
+    background-color: rgba(18, 65, 161, 0.03);
+    transform: scale(1.02) rotate(-1deg);
+}
+
+/* Philosophy page styles */
+.journal-spine {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+.ripped-edge-bottom {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 95% 98%, 90% 86%, 85% 96%, 80% 84%, 75% 95%, 70% 82%, 65% 97%, 60% 85%, 55% 94%, 50% 82%, 45% 96%, 40% 86%, 35% 98%, 30% 85%, 25% 95%, 20% 82%, 15% 97%, 10% 88%, 5% 100%, 0% 85%);
+}
+
+.hand-check {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-radius: 30% 70% 50% 50% / 30% 30% 70% 70%;
+}
+
+.topo-line {
+    fill: none;
+    stroke: #1241a1;
+    stroke-width: 0.5;
+    opacity: 0.15;
+}
+
+.isometric-structure {
+    transform: skewY(-10deg);
+}
+
+.leader-line {
+    position: absolute;
+    background: #1241a1;
+    height: 1px;
+    opacity: 0.6;
+}
+
+.sketch-ui {
+    filter: drop-shadow(4px 4px 0px rgba(18, 65, 161, 0.05));
+}
+
+/* Loading page styles */
+.ink-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0f2c63;
+    opacity: 0.9;
+    transition: height 0.1s ease;
+}
+
+.ink-surface {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,5 Q10,0 20,5 T40,5' fill='none' stroke='%230f2c63' stroke-width='2'/%3E%3C/svg%3E");
+    background-size: 20px 10px;
+    animation: waveMove 2s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+}
+
+.bottle-glass-highlight {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.4) 30%, rgba(255,255,255,0) 50%);
+}
+
+.hand-drawn-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    animation: drawLine 3s ease-out forwards;
+}
+
+@keyframes drawLine {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+}
+
+.splat {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 40C45 30 35 30 35 40C30 35 30 25 40 25C35 15 45 15 50 25C55 15 65 15 60 25C70 25 70 35 65 40C65 30 55 30 50 40Z' fill='%230f2c63' opacity='0.2'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ink-texture-overlay {
+    mask-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Loading animations */
+@keyframes fillInk {
+    0% { height: 10%; }
+    50% { height: 85%; }
+    100% { height: 10%; }
+}
+
+@keyframes bubbleRise {
+    0% { transform: translateY(0) scale(0); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-10px) scale(0.5); }
+    100% { transform: translateY(-60px) scale(1); opacity: 0; }
+}
+
+@keyframes splash {
+    0%, 40% { transform: scale(0); opacity: 0; }
+    45% { transform: scale(1); opacity: 1; }
+    60% { transform: scale(1.2); opacity: 0; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes scribble {
+    0% { transform: rotate(0deg) scale(1); }
+    33% { transform: rotate(2deg) scale(1.02); }
+    66% { transform: rotate(-1deg) scale(0.98); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.animate-fill-ink {
+    animation: fillInk 4s ease-in-out infinite;
+}
+
+.animate-bubble-rise {
+    animation: bubbleRise 3s ease-in infinite;
+}
+
+.animate-splash {
+    animation: splash 4s ease-out infinite;
+}
+
+.animate-scribble {
+    animation: scribble 5s ease-in-out infinite alternate;
+}
+
+/* 404 page animations */
+@keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(10px); }
+}
+
+.animate-bob {
+    animation: bob 3s ease-in-out infinite;
+}
+
+.animate-drift {
+    animation: drift 10s linear infinite;
+}
+
+/* Sketch/service page styles */
+.sketch-grid {
+    background-image:
+        linear-gradient(rgba(18, 65, 161, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18, 65, 161, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.chemical-arrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.chemical-arrow::after {
+    content: '';
+    width: 60px;
+    height: 2px;
+    background-color: #1241a1;
+    display: inline-block;
+}
+
+.chemical-arrow::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #1241a1;
+    border-right: 2px solid #1241a1;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 0;
+}
+
+.tech-icon-frame {
+    position: relative;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.tech-icon-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid #1241a1;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    pointer-events: none;
+}
+
+.exploded-layer {
+    transition: transform 0.4s ease-out;
+}
+
+.exploded-layer:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.ripped-paper-top {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 25' preserveAspectRatio='none'%3E%3Cpath d='M0,25 L0,20 C5,22 10,10 15,20 C20,10 25,22 30,12 C35,22 40,10 45,20 C50,10 55,22 60,12 C65,22 70,10 75,20 C80,10 85,22 90,12 C95,22 100,10 100,20 L100,25 Z' fill='%23f7f5f0' stroke='%231241a1' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    transform: rotate(180deg);
+    z-index: 10;
+}
+
+.diagram-layer {
+    filter: drop-shadow(4px 8px 0px rgba(18, 65, 161, 0.1));
+    transition: all 0.3s ease;
+}
+
+.diagram-layer:hover {
+    filter: drop-shadow(6px 12px 0px rgba(18, 65, 161, 0.15));
+    transform: translateY(-2px);
+}
+
+/* Case study styles */
+.wobbly-circle {
+    border: 2px solid #1241a1;
+    border-radius: 50% 45% 55% 48% / 48% 52% 48% 52%;
+}
+
+.callout-line-case {
+    position: absolute;
+    border-bottom: 2px dashed #1241a1;
+    transform-origin: left center;
+}
+
+.callout-line-case::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    background: #1241a1;
+    border-radius: 50%;
+}
+
+/* Stamp texture */
+.stamp-texture {
+    filter: url(#grainy);
+}
+
+.stamp-container {
+    transform: rotate(-2deg);
+}
+
+/* Brass texture */
+.brass-texture {
+    background: linear-gradient(135deg, #b8860b 0%, #f0e68c 50%, #b8860b 100%);
+}
+
+/* Journal page styles */
+.bg-drafting-table {
+    background-color: #d1d5db;
+    background-image:
+        linear-gradient(#0f2c6310 1px, transparent 1px),
+        linear-gradient(90deg, #0f2c6310 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+.diary-spine-journal {
+    background: linear-gradient(90deg, #d4d0c3 0%, #f5f2eb 15%, #f5f2eb 85%, #d4d0c3 100%);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.stitch {
+    background-image: repeating-linear-gradient(0deg, #0f2c63 0px, #0f2c63 4px, transparent 4px, transparent 12px);
+    width: 2px;
+}
+
+.polaroid {
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+}
+
+.ripped-edge {
+    clip-path: polygon(0% 0%, 5% 2%, 10% 0%, 15% 3%, 20% 0%, 25% 2%, 30% 0%, 35% 3%, 40% 0%, 45% 2%, 50% 0%, 55% 3%, 60% 0%, 65% 2%, 70% 0%, 75% 3%, 80% 0%, 85% 2%, 90% 0%, 95% 3%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Philosophy meetteam page ripped edges */
+.ripped-edge-top-clip {
+    clip-path: polygon(0% 15%, 5% 0%, 10% 12%, 15% 3%, 20% 18%, 25% 5%, 30% 15%, 35% 2%, 40% 14%, 45% 4%, 50% 18%, 55% 6%, 60% 15%, 65% 3%, 70% 18%, 75% 5%, 80% 16%, 85% 4%, 90% 14%, 95% 2%, 100% 15%, 100% 100%, 0% 100%);
+}
+
+/* Sketchbook tear top from index */
+.sketchbook-tear-top {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 25' preserveAspectRatio='none'%3E%3Cpath d='M0,25 L0,20 C5,22 10,10 15,20 C20,10 25,22 30,12 C35,22 40,10 45,20 C50,10 55,22 60,12 C65,22 70,10 75,20 C80,10 85,22 90,12 C95,22 100,10 100,20 L100,25 Z' fill='%23f7f5f0' stroke='%231241a1' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    z-index: 20;
+    transform: rotate(180deg);
+}
+
+/* Pencil sketch */
+.pencil-sketch {
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+    transform: rotate(-10deg);
+}
+
+/* Float animation for message page */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(12deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Width animation for loading bar */
+@keyframes widthAnim {
+    0% { width: 0; }
+    50% { width: 100%; }
+    100% { width: 0; }
+}
