@@ -50,6 +50,15 @@ const projects = [
     link: "https://homelandingpage.vercel.app",
     specs: ["Clean Layout", "Interactive Product Showcase", "Responsive Design"],
     status: "Live",
+  },
+  {
+    name: "Furnish-Hub",
+    description: "A modern animated landing page for the furniture e-commerce brand Furnish-Hub, designed to captivate visitors with its sleek design and seamless user experience.",
+    color: "#fdf9f6",
+    image: "/Furnishhub.png",
+    link: "https://furnish-hub-coral.vercel.app/",
+    specs: ["Dynamic Animations", "Intuitive Navigation", "Mobile Optimized"],
+    status: "Live",
   }
 ];
 

@@ -990,7 +990,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
               <Link
-                to="/case-study"
+                to="/work"
                 className="group cursor-pointer relative pt-4"
               >
                 <div className="tape tape-top" />
@@ -999,7 +999,7 @@ export default function Home() {
                   <img
                     alt="Minimalist abstract architectural photo with blue tones"
                     className="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuJUse_Qxxm0AF4nGlrInnRg5Pi6CQs5pZH1gIBiYYWfgFGelzwe43x5IPfTbdlC5bs90Qd27n3p8ltsg0k9R8fMPS-lVfj67tJ5EckY1HVWwZ1p63lPXnftwsziTs4h_F2iuQH7XTqH59mIawzWKrQ90687TOvYz0eifh2vmXrvRUvel9jUlqPHVtSYinmXL8lFtYvYZ8s-OyPdAFS8t3J9I0rQ1Rcz7Q93GawO5SvEqNBqySNNACPMFJbG6W3XkIi2YUMwIOVwet"
+                    src="/Rajasa.png"
                   />
                   <div className="absolute bottom-2 right-2 font-hand text-[12px] text-primary bg-paper/90 px-1 border border-primary/20 rotate-1 shadow-sm">
                     width: 1440px
@@ -1011,7 +1011,7 @@ export default function Home() {
                 <div className="flex flex-col relative pl-2">
                   <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-primary/30" />
                   <h3 className="font-serif text-2xl font-bold text-primary tracking-tight border-b border-primary/10 inline-block pb-1 mb-2">
-                    Lumina Architect
+                    Rajasa A legacy stonecrafting company with a modern touch
                   </h3>
                   <div className="flex justify-between items-center mt-0">
                     <p className="font-display text-xs font-bold uppercase tracking-widest text-primary/70">
@@ -1033,7 +1033,7 @@ export default function Home() {
                   <img
                     alt="Abstract fluid blue ink pattern"
                     className="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZSsfnqb8Vs_yfNK2jHqbYGWuCaL0kDgfIKV369SUiy7iazy_wzqcTWpGprxHTIlL4x8SFuQwipk_PgzExulcmna4USWP_GTXGEZJQ9m8OllUEhicP9VkOeqXZxsx05RmW31MdGot5z1eM6r2AuQ26NTp_2nmklhDmWTiZHEKt8gWDek7RpE9faC4Xgj4mlMscpocC5lIzxKlTMvkISaRpxOpBwwFeP3kbgh5DhhpmCN8rJ8Hpz-3fJURcykWDnfOAyXgogO0DWbQh"
+                    src="/LuxeStay.png"
                   />
                   <div className="absolute bottom-2 left-2 font-hand text-[12px] text-primary bg-paper/90 px-1 border border-primary/20 -rotate-1 shadow-sm">
                     Mobile First
@@ -1045,11 +1045,11 @@ export default function Home() {
                 <div className="flex flex-col relative pl-2">
                   <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-primary/30" />
                   <h3 className="font-serif text-2xl font-bold text-primary tracking-tight border-b border-primary/10 inline-block pb-1 mb-2">
-                    Velvet Coffee
+                    LuxeStay A boutique hotel booking platform for discerning travelers
                   </h3>
                   <div className="flex justify-between items-center mt-0">
                     <p className="font-display text-xs font-bold uppercase tracking-widest text-primary/70">
-                      eCommerce Platform
+                      UX/UI Design &amp; Frontend Development
                     </p>
                     <span className="font-hand text-sm text-primary/50">
                       ref. 102
