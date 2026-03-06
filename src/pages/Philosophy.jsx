@@ -111,11 +111,10 @@ export default function Philosophy() {
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-serif text-5xl text-primary mb-16 text-center">The Architects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <TeamMember name="Elena Rostova" role={{ title: 'Lead Architect of Pixels', badgeIcon: 'edit' }} icon="face" animDuration="10" />
-            <TeamMember name="Marcus Chen" role={{ title: 'Keeper of the Codebase', badgeIcon: 'terminal' }} icon="face_3" animDuration="12" reverse />
-            <TeamMember name="Sarah Jenkins" role={{ title: 'Color Theory Sorceress', badgeIcon: 'palette' }} icon="face_6" animDuration="15" />
-            <TeamMember name="David Wright" role={{ title: 'Illustrator in Chief', badgeIcon: 'draw' }} icon="face_2" animDuration="11" reverse />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <TeamMember name="Patamsetti Shanmukha Sri Sai" role={{ title: 'Founder and UI/UX designer', badgeIcon: 'edit' }} icon="face" animDuration="10" />
+            <TeamMember name="Taksh Patel" role={{ title: 'Co-Founder and Front End Developer', badgeIcon: 'terminal' }} icon="face_3" animDuration="12" reverse />
+            <TeamMember name="Patchilla Mohith" role={{ title: 'Backend Developer', badgeIcon: 'palette' }} icon="face_6" animDuration="15" />
           </div>
         </div>
       </section>
