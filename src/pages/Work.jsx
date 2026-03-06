@@ -7,7 +7,7 @@ const projects = [
     description: "Brand Identity & Interface Design",
     color: "#fbf8f3",
     image: "/Rajasa.png",
-    hasLink: false,
+    link: "https://rajasa-v4o2.vercel.app",
     specs: [
       "Primary Font: Playfair Display",
       "Grid System: 12-col fluid",
@@ -33,6 +33,24 @@ const projects = [
     specs: ["Custom Animations", "Performance Optimized", "SEO Ready"],
     status: "Live",
   },
+  {
+    name: "Velvet",
+    description: "Modern Lipstick E-commerce Landing Page",
+    color: "#fdf8f5",
+    image: "/Velvet.png",
+    link: "https://lipstick-landing-page.vercel.app/",
+    specs: ["Elegant Typography", "Smooth Interactions", "Mobile First"],
+    status: "Live",
+  },
+  {
+    name: "Vortex",
+    description: "A modern landing page for the kitchen appliance brand Vortex, showcasing their latest line of sleek and innovative products. ",
+    color: "#f9f5f0",
+    image: "/Vortex.png",
+    link: "https://homelandingpage.vercel.app",
+    specs: ["Clean Layout", "Interactive Product Showcase", "Responsive Design"],
+    status: "Live",
+  }
 ];
 
 export default function Work() {
