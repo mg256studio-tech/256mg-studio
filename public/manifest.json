@@ -1,0 +1,27 @@
+{
+  "name": "256mg.studio - Digital Agency",
+  "short_name": "256mg",
+  "description": "Creative digital agency specializing in web design, branding, and digital product development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf8f3",
+  "theme_color": "#0f2c63",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["design", "agency", "portfolio"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

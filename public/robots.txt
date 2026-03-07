@@ -1,0 +1,21 @@
+# robots.txt for 256mg.studio
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all images
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap location
+Sitemap: https://256mg.studio/sitemap.xml
+
+# Crawl delay (optional, 1 second)
+Crawl-delay: 1
